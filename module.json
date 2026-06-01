@@ -1,8 +1,8 @@
 {
   "id": "token-facing-flip",
   "title": "Token Facing Flip",
-  "description": "Flips token artwork horizontally based on horizontal movement and keeps token rotation upright.",
-  "version": "0.1.0",
+  "description": "A lightweight Foundry VTT module that automatically flips token artwork left and right as tokens move across the map. Includes manual flip hotkeys, per-token default facing direction, and optional rotation locking.",
+  "version": "0.1.1",
   "authors": [
     {
       "name": "Bastian Dornauf"
@@ -14,5 +14,8 @@
   },
   "esmodules": [
     "token-facing-flip.js"
-  ]
+  ],
+  "url": "https://github.com/bastiandornauf/token-facing-flip/",
+  "manifest": "https://raw.githubusercontent.com/bastiandornauf/token-facing-flip/main/module.json",
+  "download": "https://github.com/bastiandornauf/token-facing-flip/releases/download/v0.1.0/token-facing-flip.zip"
 }

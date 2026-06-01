@@ -1,19 +1,19 @@
+/**
+ * Token Facing Flip
+ * Automatically flips token artwork based on horizontal movement.
+ * Foundry VTT v13+
+ */
+
 const MODULE_ID = "token-facing-flip";
 
-// -----------------------------
-// Keybindings registrieren
-//
-// - Strg + F: Ausgewählte Token horizontal spiegeln
-// - Strg + B: Token-Basis-Ausrichtung wechseln (rechts/links)  
-//
-// bei Problemen mit Browser Search (Strg-F) können die Keybindings angepasst oder deaktiviert werden.
-//
-// -----------------------------
+// -----------------------------------------------------------------------------
+// Keybindings
+// -----------------------------------------------------------------------------
 
 Hooks.once("init", () => {
   game.keybindings.register(MODULE_ID, "flipSelectedTokens", {
     name: "Flip selected tokens horizontally",
-    hint: "Mirrors the selected token artwork left/right.",
+    hint: "Temporarily mirrors the selected token artwork left/right.",
     editable: [{ key: "KeyF", modifiers: ["Control"] }],
     restricted: false,
     onDown: () => {
@@ -21,7 +21,6 @@ Hooks.once("init", () => {
       return true;
     }
   });
-  
 
   game.keybindings.register(MODULE_ID, "toggleBaseFacing", {
     name: "Toggle token base facing",
@@ -35,25 +34,25 @@ Hooks.once("init", () => {
   });
 });
 
-
-// -----------------------------  
-// Token-Update überwachen und bei Bewegung oder Rotation automatisch spiegeln
-// -----------------------------
+// -----------------------------------------------------------------------------
+// Automatic token facing
+// -----------------------------------------------------------------------------
 
 Hooks.on("updateToken", async (tokenDoc, changes, options, userId) => {
   if (options?.[MODULE_ID]?.skip) return;
 
   const activeGM = game.users.activeGM;
-  if (!activeGM || game.user.id !== activeGM.id) return;
+  if (!activeGM) return;
+  if (game.user.id !== activeGM.id) return;
 
-  const movedHorizontally = Object.hasOwn(changes, "x");
-  const changedRotation = Object.hasOwn(changes, "rotation");
+  const movedHorizontally = changes.x !== undefined;
+  const changedRotation = changes.rotation !== undefined;
 
   if (!movedHorizontally && !changedRotation) return;
 
   const updates = {};
 
-  if ((tokenDoc.rotation ?? 0) !== 0 || changes.rotation !== undefined) {
+  if ((tokenDoc.rotation ?? 0) !== 0 || changedRotation) {
     updates.rotation = 0;
   }
 
@@ -80,15 +79,15 @@ Hooks.on("updateToken", async (tokenDoc, changes, options, userId) => {
   });
 });
 
-// ------------------------------
-// Funktionen zum Spiegeln und Umschalten der Basis-Ausrichtung
-// -----------------------------
-
+// -----------------------------------------------------------------------------
+// Utility functions
+// -----------------------------------------------------------------------------
 
 async function flipSelectedTokens() {
   const tokens = canvas.tokens?.controlled ?? [];
 
   if (!tokens.length) {
+    // TODO: Move user-facing strings to localization files.
     ui.notifications.warn("No token selected.");
     return;
   }
@@ -105,15 +104,11 @@ async function flipSelectedTokens() {
   });
 }
 
-// -----------------
-// Umschalten der Basis-Ausrichtung (rechts/links) für die ausgewählten Token
-// Dies beeinflusst, ob das Token standardmäßig nach rechts (1) oder links (-1) ausgerichtet ist, was wiederum die Richtung bestimmt, in die es sich bewegt, wenn es horizontal gespiegelt wird.
-// -----------------
-
 async function toggleBaseFacingForSelectedTokens() {
   const tokens = canvas.tokens?.controlled ?? [];
 
   if (!tokens.length) {
+    // TODO: Move user-facing strings to localization files.
     ui.notifications.warn("No token selected.");
     return;
   }
@@ -134,5 +129,6 @@ async function toggleBaseFacingForSelectedTokens() {
     animate: false
   });
 
-  ui.notifications.info("Token base facing toggled.");
+  // TODO: Move user-facing strings to localization files.
+  ui.notifications.info("Default facing direction updated for selected token(s).");
 }

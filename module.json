@@ -1,0 +1,18 @@
+{
+  "id": "token-facing-flip",
+  "title": "Token Facing Flip",
+  "description": "Flips token artwork horizontally based on horizontal movement and keeps token rotation upright.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Bastian Dornauf"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": [
+    "token-facing-flip.js"
+  ]
+}

@@ -4,7 +4,8 @@ A lightweight Foundry VTT module that gives 2D tokens a sense of direction witho
 
 ## Why?
 
-Many character portraits and token artworks are designed to face either left or right. On top-down maps, rotating these tokens often looks unnatural, especially when using illustrated character art instead of traditional top-down tokens.
+Many character portraits and token artworks are designed to face either left or right. 
+On top-down maps, rotating these tokens often looks unnatural, especially when using illustrated character art instead of traditional top-down tokens.
 
 Token Facing Flip provides a simple alternative:
 
@@ -13,7 +14,9 @@ Token Facing Flip provides a simple alternative:
 - Moving up or down keeps the current facing direction.
 - Tokens remain upright and are never rotated.
 
-This creates a stronger sense of orientation and can make scenes feel more alive. Characters can appear to look at each other during conversations, face opponents during encounters, or simply feel more grounded in the world without requiring complex animation systems.
+This creates a stronger sense of orientation and can make scenes feel more alive. 
+
+Characters can appear to look at each other during conversations, face opponents during encounters, or simply feel more grounded in the world without requiring complex animation systems.
 
 
 ## Features
